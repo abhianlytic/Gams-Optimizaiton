@@ -4,6 +4,7 @@ set i representing number of facility / 1*9 /;
 set j representing number of warehouse / 1*14 /;
 
 Binary Variables y(i);
+*Variables y(i);
 Variables x(i,j) number of unit shipped from facility i to warehouse j
           z total cost;
 
@@ -66,10 +67,11 @@ Equations obj,m(i),k(j);
 obj.. z=E=sum(i,f(i)*y(i))+sum((i,j),c(i,j)*x(i,j));
 m(i)..  sum(j,x(i,j))=L=u(i)*y(i);
 k(j)..  sum(i,x(i,j))=E=b(j);
-*v(i,j).. x(i,j)=L=u(i)*y(i);
+
 Model a2q1f1/all/;
 
 Solve a2q1f1 using MIP minimizing z;
+*Solve a2q1f1 using LP minimizing z;
 
 Display z.L,x.L;
 
