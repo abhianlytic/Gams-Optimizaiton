@@ -62,16 +62,19 @@ Table c(i,j)    cost of shipping from i to j
 7 9  4 3  6  4  4 4  4  6  6  7  8  3  9
 8 10 5 1  9  1  3 5  10 10 3  10 8  9  3
 9 2  9 9  10 3  8 2  1  6  4  9  10 8  5 ;
-Equations obj,m(i),k(j), v(i,j);
+Equations obj,m(i),k(j),jj;
 
 obj.. z=E=sum(i,f(i)*y(i))+sum((i,j),c(i,j)*x(i,j));
 m(i)..  sum(j,x(i,j))=L=u(i)*y(i);
 k(j)..  sum(i,x(i,j))=E=b(j);
-v(i,j).. x(i,j)=L=min(u(i),b(j))*y(i);
-Model a2q1f3/all/;
+*added below for 1c
+jj..  sum(i,y(i))=G=3;
 
-Solve a2q1f3 using MIP minimizing z;
-*Solve a2q1f3 using LP minimizing z;
+
+Model a2q1f1c/all/;
+
+Solve a2q1f1c using MIP minimizing z;
+*Solve a2q1f1 using LP minimizing z;
 
 Display z.L,x.L;
 
